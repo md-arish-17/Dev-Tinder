@@ -2,30 +2,28 @@ const express = require("express")
 const app = express()
 const { auth, userAuth } = require("./middlewares/auth")
 
-// app.use("/admin",(req,res,next)=>{
-//     const token = "xyz"
-//     const isAuthorized = token === "xyz"
-//     if(isAuthorized){
-//         next()
-//     }
-//     else{
-//         res.status(401).send("you are Not an Admin")
-//     }
-// })
-
-app.use("/admin", auth)
-
-app.get("/user", userAuth, (req,res)=>{
-    res.send("User details fetched successfully")
+app.use("/user",(err,req,res,next)=>{
+    if(err){
+        console.log("usman")
+        res.status(500).send("Something went wrong")
+    }
 })
 
-app.get("/admin/getAllData",(req,res)=>{
-    res.send("All Data Successfully Retreive")
+app.get("/getUserData",(req,res)=>{
+    throw new Error("jhabru virus")
+    res.send("All User Data Sent")
 })
 
-app.delete("/admin/deleteUser",(req,res)=>{
-    res.send("User Deleted Successfully")
+app.get("/admin",(req,res)=>{
+    try{
+        throw new Error("Ant Virus")
+        res.send("I got my Data")
+    }
+    catch{
+        res.status(500).send("did'nt get the data")
+    }
 })
+
 
 app.listen(8081,()=>{
     console.log("Port running at 8081") 
